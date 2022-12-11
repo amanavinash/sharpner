@@ -19,7 +19,18 @@ for(var i=0;i<items.length;i++)
 {
 items[i].style.fontWeight='bold' ;
 }
-items[1].style.backgroundColor='green' ;
+// items[1].style.backgroundColor='green' ;
+// var li =document.getElementsByTagName('li');
+// console.log(li);
+// console.log(li[1]);
+// li[1].textContent="hello" ;
+
+// for(var i=0;i<li.length;i++)
+// {
+// li[i].style.fontWeight='bold' ;
+// }
+// li[1].style.backgroundColor='green' ;
+
 
 
 
