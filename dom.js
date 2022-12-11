@@ -10,15 +10,15 @@
 //headerTitle.style.borderBlock='solid 3px #000';
 
 //HeadTitle.textContant='hello' ;
-var items =document.getElementsByClassName("list-group-item");
-console.log(items);
-console.log(items[1]);
-items[1].textContent="hello" ;
+// var items =document.getElementsByClassName("list-group-item");
+// console.log(items);
+// console.log(items[1]);
+// items[1].textContent="hello" ;
 
-for(var i=0;i<items.length;i++)
-{
-items[i].style.fontWeight='bold' ;
-}
+// for(var i=0;i<items.length;i++)
+// {
+// items[i].style.fontWeight='bold' ;
+// }
 // items[1].style.backgroundColor='green' ;
 // var li =document.getElementsByTagName('li');
 // console.log(li);
@@ -30,6 +30,27 @@ items[i].style.fontWeight='bold' ;
 // li[i].style.fontWeight='bold' ;
 // }
 // li[1].style.backgroundColor='green' ;
+var header=document.querySelector('#main-header');
+var item=document.querySelector('.list-group-item');
+item.style.color='red';
+var secondItem=document.querySelector('.list-group-item:nth-child(2)');
+secondItem.style.color='green';
+var odd=document.querySelectorAll('.list-group-item:nth-child(odd)');
+for(var i=0;i<odd.length;i++)
+{
+odd[i].style.backgroundColor= '#ccc' ;
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
