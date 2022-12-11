@@ -28,8 +28,8 @@
 // for(var i=0;i<li.length;i++)
 // {
 // li[i].style.fontWeight='bold' ;
-// }
-// li[1].style.backgroundColor='green' ;
+ 
+ //li[1].style.backgroundColor='green' ;
 var header=document.querySelector('#main-header');
 var item=document.querySelector('.list-group-item');
 item.style.color='red';
