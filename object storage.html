@@ -1,0 +1,65 @@
+
+
+
+
+<head>
+<meta> 
+</meta>
+</head>
+<body>
+<form onsubmit="saveToLocalStorage(event)">
+<label>Name</label>
+ <input type="text" name="username" required/>   
+<lable>Email</lable> 
+<input type="email" name="emailId">
+<lable>Passward</lable>   
+<input type="password"name="password">
+<button>sing up</button>
+<ul id=listOfUser> </ul>
+<script>
+function saveToLocalStorage(event) {
+event.preventDefault();
+const name=event.target.username.value ;
+const email=event.target.emailId.value;
+const password=event.target.password.value;
+// localStorage.setItem('name', name) ;
+// localStorage.setItem('email', email) ;
+// localStorage.setItem('password', password ) ;
+
+
+var myobj = {
+name,
+email,
+ password ,   
+};
+
+localStorage.setItem( myobj.email,JSON.stringify(myobj))
+ 
+showNewUserOnScreen(myobj)
+function showNewUserOnScreen(user)
+{
+
+ const parentNode= document.getElementById('listOfUser') ;
+ const childHTML=`<li>${user.name} - ${user.email}</li>`
+ parentNode.innerHTML=parentNode.innerHTML+childHTML;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+}
+</script>
+</body>
+</html>
+
+
