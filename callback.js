@@ -1,29 +1,43 @@
 
-const post=[
-   { title:'post one', body: 'this is  post one'} ,
-   {title:'post two' , body:'this is  post one'}
-] ;
-function getPost() {
-setTimeout (()=> {   
- let output= '';
-  post.forEach((post,index)=>{
-output+=`<li>${post.title}</li>` ;
-} ); 
-document.body.innerHTML=output;
-},1000) ;
+console.log('person:1 show ticket') ;
+console.log('person:2 show ticket') ;
 
+
+
+const preMovie=async()=> {
+const promiseWifeBringTricks=new promise ((resolve,reject)=> {
+  setTimeout(()=>resolve('ticket'),3000);
+ }) ;
+const getpopcorn =new promise ((resolve,reject)=> resolve(`popcorn`)) ;
+
+const get coldrinks =new promise ((resolve,reject)=> resolve(`coldrinks`)) ;
+let ticket= await promiseWifeBringTricks ;
+
+console.log('wife :i have a ticket') ;
+console.log('husband :should we go now') ;
+console.log('wife :no i am hungary') ;
+
+
+let popcorn = await getpopcorn
+
+console.log('husband :i got popcorn') ;
+console.log('husband :should we go now') ;
+console.log('wife :no i need coldrinks') ;
+
+
+let coldrinks = await getpopcorn
+
+console.log('husband  :ok') ;
+console.log('husband :should we go now') ;
+console.log('wife :yes') ;
+ return ticket;
 }
-function creatPost(post,callback){
-    setTimeout(()=>{
-    posts.push(post);
-    callback();   
-    },2000) ;
- }
-// getPost();
 
 
+preMovie().then((m)=>console.log(m));
 
-creatPost({title:'post three',body:'Thish is post three'},getPost );
+console.log('person:4 show ticket') ;
+console.log('person:5 show ticket') ;
 
 
 
