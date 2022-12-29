@@ -15,10 +15,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
 
-
-
-
-
         <script>
             function saveToLocalStorage(event) {
                 event.preventDefault();
@@ -33,8 +29,22 @@
                     email,
                     phonenumber
                 }
-                localStorage.setItem(obj.email, JSON.stringify(obj))
-                showNewUserOnScreen(obj)
+                 axios.get("https://crudcrud.com/api/a3a9dc18acbb4386b922ed090b4c4c79/data,obj") 
+                 .then((response)=>{
+                     showNewUserOnScreen(respon.data)  
+             })
+
+             .catch((err)=>{
+                    console.log(err)  
+             }) ;
+
+
+
+                //  .catch((err())=>{
+                //      console.log(err)
+                //  });
+                // // localStorage.setItem(obj.email, JSON.stringify(obj))
+                // showNewUserOnScreen(obj)
             }
 
             window.addEventListener("DOMContentLoaded", () => {
