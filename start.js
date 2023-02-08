@@ -10,13 +10,13 @@ if(url==='/'){
       console.log(err);
     }
     console.log(data);
- })
   res.write('<html>');
   res.write('<head><title>My first page</title></head>');
-  req.write(`<body>${data}</body>`)
+  res.write(`<body>${data}</body>`)
   res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="summit">send</button></form><body>');
   res.write('</html>');
 return res.end();
+})
 } else if(url==='/message'&& method=='POST')
  {
 req.on('data',(chunk)=>{
@@ -26,19 +26,14 @@ req.on('data',(chunk)=>{
  req.on('end',()=>{
  const parsedBody=Buffer.concat(body).toString();
  console.log(parsedBody);
+ const message =parsedBody.split('=')[1] ;
  fs.writeFileSync('message.text',message);
 }) ;
  res.statusCode=302;
  res.setHeader('Location','/');
  return res.end();
- }else
-res.setHeader('Content-Type','text/html');
-res.write('<html>');
-res.write('<head><title>My first page</title></head>');
-res.write('<body><h1> Welcome to my Node Js project</h><body>');
-res.write('</html>');
+ }
 
- res.end();
  });
 // module.exports=requestHandler;
  server.listen(4000);
