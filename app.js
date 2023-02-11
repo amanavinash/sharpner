@@ -1,0 +1,20 @@
+const http = require('http');
+const express=require('express');
+const app=express();
+app.use((req,res,next)=>{
+    console.log('in the middle ware');
+   next() ;
+}) ;
+
+app.use((req,res,next)=>{
+    console.log('in the anothermiddle ware');
+    res.send ('<h1>hello for express</h1>');
+}) ;
+
+const server = http.createServer(app);
+
+server.listen(4000);
+
+
+
+
