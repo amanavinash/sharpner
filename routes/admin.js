@@ -2,6 +2,8 @@
 const path=require('path') ;
 const express=require('express');
 const router =express.Router();
+const concuctus=require('../controller/concutus')
+ const success=require('../controller/sucess')
 router.get('/add-product',(req,res,next)=>{ 
 res.sendFile(path.join(__dirname, '../','views','add-product.html'));
 }) ;
@@ -10,26 +12,12 @@ router.post('/add-product',(req,res,next)=>{
     res.redirect('/');
 }) ;
 
-router.get('/contactus',(req,res,next)=>{ 
-    res.sendFile(path.join(__dirname, '../','views','learn.html'));
-    }) ;
-
- router.get('/success' ,(req,res,next)=>{ 
-        res.send("Form successfuly filled");
-        }) ;
-
-
-
-
-
-
-
-
-
-
+router.get('/contactus',concuctus.concuctuss),
+router.post('/success',success.sucesss),
 
 module.exports = router ;
-
+exports.concuctus=concuctus;
+exports.sucess=sucess;
 
 
 
