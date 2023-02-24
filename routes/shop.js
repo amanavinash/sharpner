@@ -6,15 +6,13 @@ router.get('/',(req,res,next)=>{
 
 }) ;
 
-router.get('/contactus',(req,res,next)=>{ 
-    res.sendFile(path.join(__dirname, '../','views','learn.html'));
-    }) ;
-
- router.post('/success' ,(req,res,next)=>{ 
-        res.send("Form successfuly filled");
-        }) ;
-
 module.exports=router ;
+
+
+
+
+
+
 
 
 

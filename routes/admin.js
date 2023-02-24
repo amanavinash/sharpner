@@ -2,8 +2,8 @@
 const path=require('path') ;
 const express=require('express');
 const router =express.Router();
-const concuctus=require('../controller/concutus')
- const success=require('../controller/sucess')
+const controller = require('../controller/concutus') ;
+
 router.get('/add-product',(req,res,next)=>{ 
 res.sendFile(path.join(__dirname, '../','views','add-product.html'));
 }) ;
@@ -11,13 +11,10 @@ router.post('/add-product',(req,res,next)=>{
     console.log(req.body);
     res.redirect('/');
 }) ;
-
-router.get('/contactus',concuctus.concuctuss),
-router.post('/success',success.sucesss),
+router.get('/concutus',controller.concuctus) ;
+router.get('/concutus',controller.sucess) ;
 
 module.exports = router ;
-exports.concuctus=concuctus;
-exports.sucess=sucess;
 
 
 
@@ -43,9 +40,78 @@ exports.sucess=sucess;
 
 
 
-//res.sendFile(path.join(__dirname, '../','views','add-product.html'));
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const Product=require('../models/product') ;
 // const path=require('path') ;
+// const express=require('express');
+// const router =express.Router();
+// router.get('/add-product',(req,res,next)=>{ 
+// res.sendFile(path.join(__dirname, '../','views','add-product.html'));
+// }) ;
+// router.post('/add-product',(req,res,next)=>{
+//     console.log(req.body);
+    
+// const product=new Product(req.body.title);
+// product.save();
+// res.redirect('/');
+// }) ;
+
+
+
+
+
+
+
+
+
+
+
+module.exports = router ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
