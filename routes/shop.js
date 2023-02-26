@@ -1,42 +1,11 @@
-const path=require('path') ;
-const express=require('express');
-const router =express.Router();
-router.get('/',(req,res,next)=>{
- res.sendFile(path.join(__dirname, '../','views','shop.html'));
+const path = require('path');
 
- router.get('/contactus',(req,res,next)=>{ 
-    res.sendFile(path.join(__dirname, '../','views','learn.html'));
-    }) ;
+const express = require('express');
 
- router.post('/success' ,(req,res,next)=>{ 
-        res.send("Form successfuly filled");
-        }) ;
+const productsController = require('../controllers/products');
 
+const router = express.Router();
 
+router.get('/', productsController.getProducts);
 
-
-
-
-
-
-}) ;
-
-
-module.exports=router ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = router;
