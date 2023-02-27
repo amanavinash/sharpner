@@ -1,4 +1,4 @@
-<html lang="en">
+
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,6 @@
                 const name = event.target.username.value;
                 const email = event.target.emailId.value;
                 const phonenumber = event.target.phonenumber.value;
-                
                 const obj = {
                     name,
                     email,
@@ -57,7 +56,7 @@
                 document.getElementById('email').value = '';
                 document.getElementById('username').value = '';
                 document.getElementById('phonenumber').value ='';
-                // console.log(localStorage.getItem(user.emailId))
+                
                 if(localStorage.getItem(user.email) !== null){
                     removeUserFromScreen(user.email)
                 }

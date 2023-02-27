@@ -6,26 +6,29 @@
 </head>
 <body> 
  <form onsubmit="aman(event)">
-     <label> Choose expenceamount</label>
+    
+     <label> Choose expenceamount</label><br>
      <input id='number' type="number" name="number">
-     <label> Choose discription</label>
+
+     <label> Choose discription</label><br>
      <input id='text' type="text" name="text">
-     <label class="my-1 mr-2">choose a category </label>
-     <select id='category' type="text" name="category">
+     <label class="my-1 mr-2">choose a category </label><br>
+    
+     <select id='category' type="text" name="category"><br>
          <option selected></option>
          <option value="on vocation">on vocation</option>
          <option value=" diesel"> diesel</option>
          <option value=" moviewwwdsd"> moviewwwdsd</option>
          <option value="car"> car</option>
-     </select>
-     <button> Add Expences </button>
+         <link rel="stylesheet" href="aman.css">
+     </select><br>
+     <button> Add Expences </button><br>
  </form>
  
  <ul id="listOfUsers"></ul>
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
    <script>
-    
        function aman(event) {
            event.preventDefault();
            const number = event.target.number.value;
@@ -35,16 +38,7 @@
                number,
                text,
                category
-           }
-        //    axios.post("https://crudcrud.com/api/ec89b91bac8140a88d3737d6e3866918/appointmentData",obj)
-        //        .then((response) => {
-        //            showNewUserOnScreen(response.data)
-        //        })
-        //        .catch((err) => {
-        //            document.body.innerHTML = document.body.innerHTML + 
-        //            console.log(err)
-        //        });
-
+       }
 async function activ(){
 try{
     let response=await axios.post("https://crudcrud.com/api/ec89b91bac8140a88d3737d6e3866918/appointmentData",obj)
@@ -55,11 +49,11 @@ document.body.innerHTML = document.body.innerHTML +
 }   
 }
 activ() ;
-  }
-
+  
+       }
 
        
-    window.addEventListener("DOMContentLoaded", () => {
+       window.addEventListener("DOMContentLoaded", () => {
         //    axios.get("https://crudcrud.com/api/ec89b91bac8140a88d3737d6e3866918/appointmentData")
         //        .then((response) => {
         //            console.log(response)

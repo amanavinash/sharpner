@@ -1,16 +1,18 @@
-
-   <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body> 
-    <form onsubmit="aman(event)">
+<body>
+     <form onsubmit="aman(event)">
         <label> selling price</label>
-        <input id='number' type="number" name="number">
+        <input id='number' type="number" name="number" />
         <label> Product Name</label>
-        <input id='text' type="text" name="text">
+        <input id='text' type="text" name="text" />
+
         <label class="my-1 mr-2">choose a category </label>
         <select class="custom-select my-1 mr-sm-2" id='category' type="text" name="category">
             <option selected></option>
@@ -27,26 +29,19 @@
     <ul id="listOfUserss"></ul>
     <h2>Skin care Item</h2>
     <ul id="listOfUsersss"></ul>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
     <script>
         function aman(event) {
             event.preventDefault();
             const number = event.target.number.value;
             const text = event.target.text.value;
             const category = event.target.category.value;
-        const obj = {
+            const obj = {
                 number,
                 text,
-                category 
+                category
             }
-            axios.post("https://crudcrud.com/api/f7cdff92c1404647b09a6bb5a51b5aaf/appointmentData", obj)
-                .then((response) => {
-                    showNewUserOnScreen(response.data)
-                })
-                .catch((err) => {
-                    document.body.innerHTML = document.body.innerHTML + "<h4> something went wrong</h4>"
-                    console.log(err)
-                });
+            localStorage.setItem(obj.category, JSON.stringify(obj))
+            showNewUserOnScreen(obj)
         }
         window.addEventListener("DOMContentLoaded", () => {
             axios.get("https://crudcrud.com/api/f7cdff92c1404647b09a6bb5a51b5aaf/appointmentData")
@@ -64,6 +59,7 @@
             document.getElementById('text').value = '';
             document.getElementById('number').value = '';
             document.getElementById('category').value = '';
+
             if (localStorage.getItem(user.text)!== null) {
                 removeUserFromScreen(user.text)
             }
@@ -71,37 +67,24 @@
                 const parentNode = document.getElementById('listOfUsers');
                 const childHTML = `<li id=${user._id}> ${user.number} - ${user.text}-${user.category}
                                          <button onclick=deleteUser('${user._id}','${user.category}')> Delete User </button>
-                                         <button onclick=editUserDetails('${user.number}','${user._id}','${user.text}','${user.category}')>Edit User </button>
-
                                                                  </li>`
                 parentNode.innerHTML = parentNode.innerHTML + childHTML;
             }
             if (user.category =='food') {
-                const parentNode = document.getElementById('listOfUserss');
-                const childHTML = `<li id=${user._id}> ${user.number} - ${user.text}-${user.category}
+                const parentNodee = document.getElementById('listOfUserss');
+                const childHTMLL = `<li id=${user._id}> ${user.number} - ${user.text}-${user.category}
                                         <button onclick=deleteUser('${user._id}','${user.category}')> Delete User </button>
-                                        <button onclick=editUserDetails('${user.number}','${user._id}','${user.text}','${user.category}')>Edit User </button>
-                                     </li>`
-                parentNode.innerHTML = parentNode.innerHTML + childHTML;
+                                                            </li>`
+                parentNodee.innerHTML = parentNodee.innerHTML + childHTMLL;
             }
             if (user.category == "SkinCareItem") {
-                const parentNode = document.getElementById('listOfUsersss');
-                const childHTML = `<li id=${user._id}> ${user.number} - ${user.text}-${user.category}
-                                        <button onclick=deleteUser('${user._id}','${user.category}')> Delete User </button>
-                                        <button onclick=editUserDetails('${user.number}','${user._id}','${user.text}','${user.category}')>Edit User </button>
-                                     </li>`
-                parentNode.innerHTML = parentNode.innerHTML + childHTML;
+                const parentNodee = document.getElementById('listOfUsersss');
+                const childHTMLL = `<li id=${user._id}> ${user.number} - ${user.text}-${user.category}
+                    <button onclick=deleteUser('${user._id}','${user.category}')> Delete User </button>  
+                                                                </li>`
+                parentNodee.innerHTML = parentNodee.innerHTML + childHTMLL;
              }
         }
-
- function editUserDetails(number,userId, text, category){
-    document.getElementById('text').value = text;
-document.getElementById('category').value = category;
-
-document.getElementById('number').value =number;
-
-deleteUser(userId,category);
-}
         function deleteUser(userId,category) {
             axios.delete(`https://crudcrud.com/api/f7cdff92c1404647b09a6bb5a51b5aaf/appointmentData/${userId}`)
 
@@ -135,9 +118,7 @@ deleteUser(userId,category);
                 const childNodeToBeDeleted= document.getElementById(userId);
                 if (childNodeToBeDeleted) {
                     parentNode.removeChild(childNodeToBeDeleted)
-
                 }
-
             }
         }
 
