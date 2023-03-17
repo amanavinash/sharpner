@@ -10,8 +10,8 @@ exports.addUser = async(req, res, next) => {
     const email=req.body.email;
     const phonenumber = req.body.phonenumber;
     console.log(name,email,phonenumber) ;
-    const data=await User.create({name:name,email:email,phonenumber:phonenumber}) ;
-    res.status(201).json({newUserDetails: data}) ;
+    const Users=await User.create({name:name,email:email,phonenumber:phonenumber}) ;
+    res.status(201).json({newUserDetails: Users}) ;
     }catch(err){
       console.log(err) ;
     res.status(500).json({
@@ -19,7 +19,7 @@ exports.addUser = async(req, res, next) => {
     })
     }
   };
-  
+
 exports.getUser=  async(req,res, next)=>{
   const  Users=await User.findAll();
   res.status(200).json({allUsers:Users}) 

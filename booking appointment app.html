@@ -35,6 +35,7 @@
            .then((response) => {
 
                showNewUserOnScreen(response.data.newUserDetails)
+               console.log("aman",response.data.newUserDetails)
            })
            .catch((err) => {
                document.body.innerHTML = document.body.innerHTML + 
@@ -81,7 +82,7 @@ deleteUser(userId);
         axios.delete(`http://localhost:3000/user/delete-user/${userId}`)
 
            .then((response) => {
-                    console.log("response",response)
+                    
                       removeUserFromScreen(userId)
                      
                   })
