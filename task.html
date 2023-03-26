@@ -1,21 +1,21 @@
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    </head>
-    <body> 
-    <form action="/user/singup" method="POST">
-     <label> Name</label>
-    <input id='name' type="text" name="name" required>
-    <label>EmailId </label>
-    <input id='emailId' type="text" name="emailId" required> 
-     <label> Passward</label>
-
-     <input id='Passward' type="password" name="passward" required>
-     </select>
-     <button> singup</button>
-     <p><a href="https://localhost:3000/">External user login</a></p>
-    </form>
-    
-    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body> 
+<form onsubmit="aman(event)">
+ <label> Name</label>
+<input id='name' type="text" name="name">
+<label>EmailId </label>
+<input id='emailId' type="text" name="emailId"> 
+ <label> Passward</label>
+ <input id='passward' type="password" name="passward">
+ </select>
+ <button> singup</button>
+</form>
+<ul id="listOfUsers"></ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+<script src="./form.js"></script>
+  
