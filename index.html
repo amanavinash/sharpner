@@ -64,8 +64,8 @@
                const parentNode = document.getElementById('listOfUsers');
                const childHTML = `<li id=${user.id}> ${user.amount}-${user.description}-${user.category}
                                         <button onclick="deleteUser('${user.id}')"> Delete Expences </button>
-                                        <button onclick="editUserDetails('${user.amount}','${user.id}','${user.description}','${user.category}')">Edit Expences </button>
- </li>`
+
+                                       <button onclick="editUserDetails('${user.amount}','${user.id}','${user.description}','${user.category}')">Edit Expences </button>  </li>`
                parentNode.innerHTML = parentNode.innerHTML + childHTML;
            }
          

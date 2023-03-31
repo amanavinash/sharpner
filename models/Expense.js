@@ -23,6 +23,3 @@ const Expense = sequelize.define('expense', {
 
 module.exports = Expense;
 
-
-
-

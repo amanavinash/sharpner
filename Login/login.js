@@ -11,6 +11,10 @@ const obj = {
     console.log(obj);
     axios.post('http://localhost:3000/user/login',obj).then(response=>{
         alert(response.data.message)
+
+        // alert('message');
+        window.location = '../index.html';
+
     })
 
 .catch((err) => {
@@ -20,7 +24,6 @@ const obj = {
             
         });
 }
-
 
 
 
