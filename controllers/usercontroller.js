@@ -1,70 +1,83 @@
 
 const User = require('../models/User')
+const bcrypt = require('bcrypt');
   function isstringvalid(string) {
   if(string== undefined||string.length===0 ){
 return true
   }else
 return false
-}
-   
+}  
 const singup = async(req, res, next) => {
-
-     try{
+  try{
     const name=req.body.name;
     const email=req.body.email;
     const passward = req.body.passward;
-    // if(name.length==0|| email==null||email.length==0||passward==null||passward.length==0)
     if(isstringvalid(name)||isstringvalid(email)||isstringvalid(passward) )
     {
  return res.status(400).json({err:"something is missing"});
 }
-    console.log(name,email,passward);
-    await User.create({name:name,email:email,passward:passward});
-    res.status(201).json({message: 'successfully created new user'}) ;
+const saltround=10;
+bcrypt.hash(passward,saltround,async(err,hash)=>{
+console.log(err);
+await User.create({name,email,passward:hash});
+res.status(201).json({message: 'successfully created new user'}) ;
     
-}catch(err){
+}) }catch(err){
       console.log(err) ;
     res.status(500).json(err)
     
 }
-
-}  
-  
-
-
+ }
   // function genrateAccesTokenid(id){
 
   // }
 
 const login =  async(req,res, next)=>{
-    const email=req.body.email;
-    const passward = req.body.passward;
-
-    if(isstringvalid(email)||isstringvalid(passward) )
-    {
-      return res.status(400).json({message:"something is missing",success:false});
-    }
+const email=req.body.email;
+const passward = req.body.passward;
+if(isstringvalid(email)||isstringvalid(passward) )
+{
+return res.status(400).json({message:"something is missing",success:false});
+ }
 
 const user=await User.findAll({where: {email}})
-// .then(user=>{
-  try{
+
+try{
 if(user.length>0){
+  bcrypt.compare(passward, user[0].passward, function(err, result) {
+    if (err){
+      res.status(201).json({success:true,message: 'Something went wrong'}) ;
+    }
 
-if (user[0].passward===passward){
-  res.status(201).json({success:true,message: 'user logged in sucessfully'}) ;
-}else{
- return res.status(404).json({success:false,message: 'Passward does not exist'}) ;
-} 
-
+  
+    if (result===true){
+      res.status(201).json({success:true,message: 'user logged in sucessfully'}) ;
+    }
+else{
+     return res.status(404).json({success:false,message: 'Passward is incorrect'}) ;
+    } 
+    
+})
 
 }else {
-  return res.status(400).json({success:false,message: 'User does not exist'}) ;
- }
- 
+     return res.status(400).json({success:false,message: 'User does not exist'}) ;
+    }
 
-}catch{
+// if (user[0].passward===passward){
+//   res.status(201).json({success:true,message: 'user logged in sucessfully'}) ;
+// }else{
+//  return res.status(404).json({success:false,message: 'Passward does not exist'}) ;
+// } 
+
+
+// }else {
+//   return res.status(400).json({success:false,message: 'User does not exist'}) ;
+//  }
+// }
+
+ }catch{
   res.status(500).json({message:err,success:false,})
-}
+ }
 
   }
 
