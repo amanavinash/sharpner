@@ -5,7 +5,10 @@ const usercontroller = require('../controllers/usercontroller');
 
 const router = express.Router();
 
-router.post('/user/singup', usercontroller.addUser) ;
+router.post('/singup', usercontroller.singup) ;
+router.post('/login',usercontroller.login);
+
+
 
 module.exports=router;
 
