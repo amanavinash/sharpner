@@ -20,10 +20,11 @@ throw new Error('amount is mandatory')
  };
 
 exports.getUser=  async(req,res, next)=>{
-const  Users=await Expense.findAll();
+const  Users=await Expense.findAll({where:{userId:req.user.id}});
 res.status(200).json({allUsers:Users}) 
  } ;
 
+ 
 exports.deleteUser= async(req,res, next)=>{
   try{
   if (!req.params.id =='undefined'){

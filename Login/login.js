@@ -10,10 +10,10 @@ const obj = {
     }
     console.log(obj);
     axios.post('http://localhost:3000/user/login',obj).then(response=>{
-        alert(response.data.message)
+    alert(response.data.message)
 
-        // alert('message');
-        window.location = '../index.html';
+    window.location.href = '../index.html';
+    localStorage.setItem('token', response.data.token) ; 
 
     })
 

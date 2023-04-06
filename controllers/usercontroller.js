@@ -1,6 +1,7 @@
 
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
   function isstringvalid(string) {
   if(string== undefined||string.length===0 ){
 return true
@@ -28,9 +29,10 @@ res.status(201).json({message: 'successfully created new user'}) ;
     
 }
  }
-  // function genrateAccesTokenid(id){
-
-  // }
+ 
+ function genrateAccesTokenid(id,name){
+return jwt.sign({userId:id,name:name},'aman')
+   }
 
 const login =  async(req,res, next)=>{
 const email=req.body.email;
@@ -48,10 +50,8 @@ if(user.length>0){
     if (err){
       res.status(201).json({success:true,message: 'Something went wrong'}) ;
     }
-
-  
     if (result===true){
-      res.status(201).json({success:true,message: 'user logged in sucessfully'}) ;
+      res.status(201).json({success:true,message: 'user logged in sucessfully',token:genrateAccesTokenid(user[0].id,user[0].name)}) ;
     }
 else{
      return res.status(404).json({success:false,message: 'Passward is incorrect'}) ;
@@ -63,17 +63,7 @@ else{
      return res.status(400).json({success:false,message: 'User does not exist'}) ;
     }
 
-// if (user[0].passward===passward){
-//   res.status(201).json({success:true,message: 'user logged in sucessfully'}) ;
-// }else{
-//  return res.status(404).json({success:false,message: 'Passward does not exist'}) ;
-// } 
 
-
-// }else {
-//   return res.status(400).json({success:false,message: 'User does not exist'}) ;
-//  }
-// }
 
  }catch{
   res.status(500).json({message:err,success:false,})

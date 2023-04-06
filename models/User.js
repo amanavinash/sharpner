@@ -19,7 +19,6 @@ const User = sequelize.define('user', {
 
   passward: {
     type: Sequelize.STRING,
-    
   }
 });
 
