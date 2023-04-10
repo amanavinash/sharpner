@@ -1,7 +1,6 @@
-
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+ const jwt = require('jsonwebtoken');
   function isstringvalid(string) {
   if(string== undefined||string.length===0 ){
 return true
@@ -13,10 +12,12 @@ const singup = async(req, res, next) => {
     const name=req.body.name;
     const email=req.body.email;
     const passward = req.body.passward;
+
     if(isstringvalid(name)||isstringvalid(email)||isstringvalid(passward) )
     {
  return res.status(400).json({err:"something is missing"});
 }
+
 const saltround=10;
 bcrypt.hash(passward,saltround,async(err,hash)=>{
 console.log(err);
@@ -99,4 +100,3 @@ login ,
   
 
     
-

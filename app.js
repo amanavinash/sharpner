@@ -1,15 +1,15 @@
-
 const path = require('path');
 const express = require('express');
 var cors = require('cors')
 const bodyParser = require('body-parser');
 const errorController = require('./controllers/error');
 const sequelize=require('./util/database')
-
 const app = express();
 app.use(cors()) ;
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+const User = require('./models/User');
+const Expense = require('./models/expense');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const userRoutes = require('./routes/user');
@@ -18,8 +18,10 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+User.hasMany(Expense);
+Expense.belongsTo(User);
 app.use('/user',userRoutes);
-app.use('/expense',expenseRoutes);
+ app.use('/expense',expenseRoutes);
 app.use(errorController.get404);
 sequelize
   .sync()
@@ -28,4 +30,3 @@ sequelize
    app.listen(3000);
   })
  .catch(err => console.log(err));
-

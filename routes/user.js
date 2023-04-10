@@ -1,4 +1,5 @@
 
+
 const express = require('express');
 
 const usercontroller = require('../controllers/usercontroller');
@@ -11,7 +12,6 @@ router.post('/login',usercontroller.login);
 
 
 module.exports=router;
-
 
 
 
