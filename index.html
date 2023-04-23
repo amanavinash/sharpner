@@ -28,12 +28,15 @@
            const amount = event.target.number.value;
            const description = event.target.text.value;
            const category = event.target.category.value;
+           
        const obj = {
                amount,
                description,
-               category
+               category,
+               
            }
-           axios.post("http://localhost:3000/expense/add-user", obj)
+           const token  =  localStorage.getItem('token') ;
+           axios.post("http://localhost:3000/expense/add-user", obj, { headers: {'Authorization':token}})
                .then((response) => {
 
                  showNewUserOnScreen(response.data.newUserDetails) 
@@ -45,17 +48,20 @@
                });
        }
        window.addEventListener("DOMContentLoaded", () => {
-           axios.get("http://localhost:3000/expense/get-user")
+        const token  =  localStorage.getItem('token') 
+           axios.get("http://localhost:3000/expense/get-user",{ headers: {'Authorization':token}  })
                .then((response) => {
                 
-                   for (var i = 0; i < response.data.allUsers.length; i++) {
-                       showNewUserOnScreen(response.data.allUsers[i])
-                   }
+                for (var i = 0; i < response.data.allUsers.length; i++) {
+                   showNewUserOnScreen(response.data.allUsers[i])
+               }
                   
                })
                .catch((error) => {
                    console.log(error)
                });
+
+
        })
        function showNewUserOnScreen(user) {
            document.getElementById('number').value = '';
@@ -64,19 +70,15 @@
                const parentNode = document.getElementById('listOfUsers');
                const childHTML = `<li id=${user.id}> ${user.amount}-${user.description}-${user.category}
                                         <button onclick="deleteUser('${user.id}')"> Delete Expences </button>
-
-                                       <button onclick="editUserDetails('${user.amount}','${user.id}','${user.description}','${user.category}')">Edit Expences </button>  </li>`
+                                    
+ </li>`
                parentNode.innerHTML = parentNode.innerHTML + childHTML;
            }
          
-function editUserDetails(amount,userId, description, category){
-    document.getElementById('number').value =amount;
-    document.getElementById('text').value = description;
-    document.getElementById('category').value = category;
-deleteUser(userId);
-}
+
        function deleteUser(userId ) {
-         axios.delete(`http://localhost:3000/expense/delete-user/${userId}`)
+        const token  =  localStorage.getItem('token') 
+         axios.delete(`http://localhost:3000/expense/delete-user/${userId}`,{ headers: {'Authorization':token}})
 
                .then((response) => {
                    removeUserFromScreen(userId)
@@ -93,15 +95,51 @@ deleteUser(userId);
                const childNodeToBeDeleted = document.getElementById(userId);
                if (childNodeToBeDeleted) {
                    parentNode.removeChild(childNodeToBeDeleted)
-               }
-         
+               }      
            
        }
 
-   </script>
+ </script> 
+   <button id="rzp-button1">Pay with Razorpay</button>
+   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+ <script> 
+    document.getElementById('rzp-button1').onclick= async function (e){
+    const token  = localStorage.getItem('token')
+    
+    const response= await axios.get("http://localhost:3000/purchase/premiummembership",{ headers: {'Authorization':token}  })
+    console.log('order.id', response.data.order.id);
+    var opinions ={
+    'key': response.data.key_id,
+    'order_id': response.data.order.id,
+    'handler':async function(response){
+    await axios.post("http://localhost:3000/purchase/updatetransactionstatus", {
+    order_id:opinions.order_id,
+    payment_id:response.razorpay_payment_id}, { headers: {'Authorization':token}})
+                alert('you are a  Priumem User Now ') ;
+    },
+    };
+    const rpzl = new Razorpay( opinions);
+    rpzl.open();
+    e.preventDefault();
+    rpzl.on('payment failed',function(response){
+    
+    console.log(response)
+    alert('something went wrong')
+    });
+    }
+ </script> 
 
+
+
+</script>
 
 </body>
 
 </html>
+
+
+
+
+
+
 

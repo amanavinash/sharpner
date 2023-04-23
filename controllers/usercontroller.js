@@ -1,7 +1,7 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
- const jwt = require('jsonwebtoken');
-  function isstringvalid(string) {
+const jwt = require('jsonwebtoken');
+function isstringvalid(string) {
   if(string== undefined||string.length===0 ){
 return true
   }else
@@ -30,10 +30,16 @@ res.status(201).json({message: 'successfully created new user'}) ;
     
 }
  }
+
+ const genrateAccesTokenid = (id, name, ispremiumuser) => {
+  return jwt.sign({ userId : id, name: name, ispremiumuser } ,'aman');
+}
+
+
  
- function genrateAccesTokenid(id,name){
-return jwt.sign({userId:id,name:name},'aman')
-   }
+//  function genrateAccesTokenid(id,name){
+// return jwt.sign({userId:id,name:name},'aman')
+//    }
 
 const login =  async(req,res, next)=>{
 const email=req.body.email;
@@ -77,7 +83,7 @@ module.exports={
 
 singup,
 login ,
-
+genrateAccesTokenid
 }
 
 
