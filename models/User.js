@@ -1,10 +1,7 @@
 
 const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
-
 const User = sequelize.define('user', {
-
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -20,6 +17,8 @@ const User = sequelize.define('user', {
 
  passward:{
   type: Sequelize.STRING,
+   ispremiumuser: Sequelize.BOOLEAN
+
  }
 });
 
