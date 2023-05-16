@@ -12,7 +12,6 @@ const Users=await Expense.create({amount:amount,description:description,category
       { totalExpenses: totalExpenses },
       { where: { id: req.user.id },
       transaction: t
-    
     }
     );
   });
@@ -22,8 +21,6 @@ const Users=await Expense.create({amount:amount,description:description,category
   res.status(500).json({success: false, error: error });
 }
 };
-
-
 exports.getUser=  async(req,res, next)=>{
 // const  Users=await Expense.findAll({ where : { userId: req.user.id}});
 const  Users=await Expense.findAll();
