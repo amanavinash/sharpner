@@ -18,7 +18,6 @@ const singup = async(req, res, next) => {
     {
  return res.status(400).json({err:"something is missing"});
 }
-
 const saltround=10;
 bcrypt.hash(passward,saltround,async(err,hash)=>{
 console.log(err);
