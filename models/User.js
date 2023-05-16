@@ -18,7 +18,7 @@ const User = sequelize.define('user', {
  passward:{
   type: Sequelize.STRING,
    ispremiumuser: Sequelize.BOOLEAN,
-   totalExpenses: {
+   totalExpenses:{
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },

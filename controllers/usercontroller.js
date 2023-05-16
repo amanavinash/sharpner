@@ -14,6 +14,8 @@ const singup = async(req, res, next) => {
     const email=req.body.email;
     const passward = req.body.passward;
 
+
+
     if(isstringvalid(name)||isstringvalid(email)||isstringvalid(passward) )
     {
  return res.status(400).json({err:"something is missing"});
