@@ -3,32 +3,47 @@ const User = require('../models/User');
 const Expense = require('../models/expense');
 const sequelize = require('../util/database');
 const e = require('express');
-const getUserLeaderBoard = async (req, res) => {
-    try{
-        const leaderboardofusers = await User.findAll({
-            attributes: ['id', 'name',[sequelize.fn('sum', sequelize.col('expenses.expenseamount')), 'total_cost'] ],
-            include: [
-                {
-                    model: Expense,
-                    attributes: []
-                }
-            ],
-            group:['user.id'],
-            order:[['total_cost', 'DESC']]
+exports.getUserLeaderBoard = async (req, res, next) => {
+    try {
+      const leaderBoardOfUsers = await User.findAll({
+        order: [["totalExpenses", "DESC"]],
+      });
+      res.status(200).json(leaderBoardOfUsers);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  };
+  
 
-        })
 
-        res.status(200).json(leaderboardofusers)
 
-} catch (err){
-    console.log(err)
-    res.status(500).json(err)
-}
-}
 
-module.exports = {
-    getUserLeaderBoard
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
