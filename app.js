@@ -1,42 +1,58 @@
-const path = require('path');
-const express = require('express');
-var cors = require('cors')
-const bodyParser = require('body-parser');
-const errorController = require('./controllers/error');
-const sequelize=require('./util/database');
-const dotenv = require('dotenv');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const fs = require("fs");
+const path = require("path");
 const app = express();
-dotenv.config();
-app.use(cors()) ;
-app.set('view engine', 'ejs');
-app.set('views', 'views');
-const User = require('./models/User');
-const Expense = require('./models/expense');
-const Order=require('./models/order');
-const adminRoutes = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
-const userRoutes = require('./routes/user');
-const expenseRoutes = require('./routes/expense');
-const purchaseRoutes=require('./routes/purchase');
-//  const premiumFeatureRoutes = require('./routes/premiumFeature')
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/admin', adminRoutes);
-app.use(shopRoutes);
-app.use('/user',userRoutes);
-app.use('/expense',expenseRoutes);
- app.use('/purchase', purchaseRoutes)
-//  app.use('/premium', premiumFeatureRoutes)
+require("dotenv").config();
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+const errorLogStream = fs.createWriteStream(path.join(__dirname, "error.log"), {
+  flags: "a",
+});
+app.use(cors());
+app.use(helmet());
+app.use(morgan("combined", { stream: accessLogStream }));
+app.use(
+  morgan("combined", {
+    stream: errorLogStream,
+    skip: (req, res) => res.statusCode < 400,
+  })
+); 
+const sequelize = require("./utils/database");
+const UserRouter = require("./Routes/UserRoutes");
+const ExpenseRouter = require("./Routes/ExpenseRoute");
+const PurchaseRouter = require("./Routes/PurchaseRouter");
+const PremiumRouter = require("./Routes/PremiumUser");
+const ForgetPasswordRouter = require("./Routes/ForgotRoute");
+const User = require("./Model/UserModel");
+const Expense = require("./Model/ExpenseModel");
+const Order = require("./Model/PurchaseModel");
+const ForgetPassword = require("./Model/ForgotModel");
+const DownloadedFiles = require("./Model/Download");
 User.hasMany(Expense);
 Expense.belongsTo(User);
-
 User.hasMany(Order);
 Order.belongsTo(User);
-app.use(errorController.get404);
+User.hasMany(ForgetPassword);
+ForgetPassword.belongsTo(User);
+User.hasMany(DownloadedFiles);
+DownloadedFiles.belongsTo(User);
+app.use(bodyParser.json({ extended: true }));
+app.use("/user", UserRouter);
+app.use("/expense", ExpenseRouter);
+app.use("/purchase", PurchaseRouter);
+app.use("/preminum", PremiumRouter);
+app.use("/password", ForgetPasswordRouter);
 sequelize
   .sync()
-  .then(result => {
- 
-   app.listen(3000);
+  .then((res) => {
+    app.listen(process.env.PORT || 4000);
   })
- .catch(err => console.log(err));
+  .catch((err) => {
+    console.log(err);
+  });
