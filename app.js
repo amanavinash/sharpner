@@ -3,36 +3,22 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const fs = require("fs");
-const path = require("path");
 const app = express();
 require("dotenv").config();
-const accessLogStream = fs.createWriteStream(
-  path.join(__dirname, "access.log"),
-  { flags: "a" }
-);
-const errorLogStream = fs.createWriteStream(path.join(__dirname, "error.log"), {
-  flags: "a",
-});
 app.use(cors());
 app.use(helmet());
-app.use(morgan("combined", { stream: accessLogStream }));
-app.use(
-  morgan("combined", {
-    stream: errorLogStream,
-    skip: (req, res) => res.statusCode < 400,
-  })
-); 
-const sequelize = require("./utils/database");
+app.use(morgan());
+const sequelize = require("./util/database");
+console.log(sequelize);
 const UserRouter = require("./Routes/UserRoutes");
 const ExpenseRouter = require("./Routes/ExpenseRoute");
 const PurchaseRouter = require("./Routes/PurchaseRouter");
 const PremiumRouter = require("./Routes/PremiumUser");
 const ForgetPasswordRouter = require("./Routes/ForgotRoute");
-const User = require("./Model/UserModel");
-const Expense = require("./Model/ExpenseModel");
-const Order = require("./Model/PurchaseModel");
-const ForgetPassword = require("./Model/ForgotModel");
+const User = require("./Model/User");
+const Expense = require("./Model/Expense");
+const Order = require("./Model/Purchase");
+const ForgetPassword = require("./Model/Forgot");
 const DownloadedFiles = require("./Model/Download");
 User.hasMany(Expense);
 Expense.belongsTo(User);
@@ -47,11 +33,11 @@ app.use("/user", UserRouter);
 app.use("/expense", ExpenseRouter);
 app.use("/purchase", PurchaseRouter);
 app.use("/preminum", PremiumRouter);
-app.use("/password", ForgetPasswordRouter);
+ app.use("/password", ForgetPasswordRouter);
 sequelize
   .sync()
   .then((res) => {
-    app.listen(process.env.PORT || 4000);
+    app.listen(4000);
   })
   .catch((err) => {
     console.log(err);
